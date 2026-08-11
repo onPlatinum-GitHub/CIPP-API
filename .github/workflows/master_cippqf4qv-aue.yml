@@ -18,6 +18,10 @@ jobs:
       - name: Checkout CIPP-API
         uses: actions/checkout@v4
 
+      - name: Build and stage CIPP modules
+        shell: pwsh
+        run: ./Tools/Build-DevApiModules.ps1
+
       - name: Deploy CIPP-API
         uses: Azure/functions-action@v1
         with:
