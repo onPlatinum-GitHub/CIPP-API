@@ -1,0 +1,26 @@
+name: Deploy CIPP-API to Australia East
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'cippqf4qv-aue'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout CIPP-API
+        uses: actions/checkout@v4
+
+      - name: Deploy CIPP-API
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE_CIPPQF4QV_AUE }}
